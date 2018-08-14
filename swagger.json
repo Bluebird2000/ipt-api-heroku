@@ -43,7 +43,7 @@
     "http"
   ],
   "paths": {
-    "/create/product": {
+    "/product": {
       "post": {
         "tags": [
           "product"
@@ -90,7 +90,7 @@
         ],
         "summary": "Update an existing product",
         "description": "",
-        "operationId": "updatePet",
+        "operationId": "updateProduct",
         "consumes": [
           "application/json",
           "application/xml"
@@ -103,10 +103,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Pet object that needs to be added to the store",
+            "description": "Product that needs to be added to store",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/Product"
             }
           }
         ],
@@ -569,7 +569,28 @@
         }
       }
     },
-    "/user": {
+    "/users": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "get users",
+        "description": "",
+        "operationId": "getUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "status: success, data: {}"
+          }
+        }
+      }
+    },
+    
+      "/user": {
       "post": {
         "tags": [
           "user"
@@ -600,6 +621,37 @@
       }
     },
     
+      "/user/update/user_id/status": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user status",
+        "description": "",
+        "operationId": "UpdateUser Status",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "parameters required to successfully change user status",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserStatus"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "status: success, data: {}"
+          }
+        }
+      }
+    },
+  
     "/user/login": {
       "post": {
         "tags": [
@@ -701,7 +753,7 @@
           }
         }
       },
-      "patch": {
+      "put": {
         "tags": [
           "user"
         ],
@@ -851,6 +903,21 @@
         "name": "User"
       }
     },
+    
+    "UserStatus": {
+      "type": "object",
+      "properties": {
+        "sttatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "UserStatus"
+      }
+    },
+    
     "Product": {
       "type": "object",
       "properties": {

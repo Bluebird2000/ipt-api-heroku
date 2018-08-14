@@ -61,7 +61,7 @@ app.get('/users/:id', (req, res) => {
     });
 });
 
-app.patch('/users/update/:id', (req, res) => {
+app.put('/users/update/:id', (req, res) => {
     let id = req.params.id;
     var body = _.pick(req.body, ['firstname', 'lastname', 'email', 'password', 'created_at', 'updated_at']);
     if(!ObjectID.isValid(id)){
@@ -81,7 +81,7 @@ app.patch('/users/update/:id', (req, res) => {
     });
 });
 
-app.patch('/users/update/status/:id', (req, res) => {
+app.put('/users/update/status/:id', (req, res) => {
     let id = req.params.id;
     var body = _.pick(req.body, ['is_active']);
     if(!ObjectID.isValid(id)){
@@ -162,7 +162,7 @@ app.post('/create/product', (req, res) => {
     });
  });
 
- app.patch('/product/update/:id', (req, res) => {
+ app.put('/product/update/:id', (req, res) => {
     let id = req.params.id;
     var body = _.pick(req.body, ['product_name', 'product_description', 'product_type', 'cost', 'created_at', 'updated_at']);
     if(!ObjectID.isValid(id)){
@@ -182,7 +182,7 @@ app.post('/create/product', (req, res) => {
     });
 });
 
-app.patch('/product/update/status/:id', (req, res) => {
+app.put('/product/update/status/:id', (req, res) => {
     let id = req.params.id;
     var body = _.pick(req.body, ['status']);
     if(!ObjectID.isValid(id)){
