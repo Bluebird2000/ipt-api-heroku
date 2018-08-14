@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "We profer real time solution to cogs through automation with respect to time as the core value in ascertaining absolute relief frm psychological stress",
+    "description": "",
     "version": "1.0.0",
     "title": "Ipt API documentation",
     "termsOfService": "http://swagger.io/terms/",
@@ -13,7 +13,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "api.ipt.ng",
+  "host": "ipt-api-deploy.herokuapp.com",
   "basePath": "/v1",
   "tags": [
     {
@@ -21,7 +21,7 @@
       "description": "All endpoints related to user management",
       "externalDocs": {
         "description": "",
-        "url": "http://api.ipt.ng"
+        "url": "https://ipt-api-deploy.herokuapp.com"
       }
     },
     
@@ -31,7 +31,7 @@
       "name": "user",
       "description": "Operations about user",
       "externalDocs": {
-        "description": "Find out more about our store",
+        "description": "Find out more",
         "url": "http://swagger.io"
       }
     }
@@ -43,14 +43,14 @@
     "http"
   ],
   "paths": {
-    "/pet": {
+    "/create/product": {
       "post": {
         "tags": [
-          "pet"
+          "product"
         ],
-        "summary": "Add a new pet to the store",
+        "summary": "Add a new product to the store",
         "description": "",
-        "operationId": "addPet",
+        "operationId": "addProduct",
         "consumes": [
           "application/json",
           "application/xml"
@@ -63,10 +63,10 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Pet object that needs to be added to the store",
+            "description": "Product that needs to be added to store",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/Product"
             }
           }
         ],
@@ -86,9 +86,9 @@
       },
       "put": {
         "tags": [
-          "pet"
+          "product"
         ],
-        "summary": "Update an existing pet",
+        "summary": "Update an existing product",
         "description": "",
         "operationId": "updatePet",
         "consumes": [
@@ -652,6 +652,7 @@
         }
       }
     },
+    
     "/user/logout/user_id": {
       "post": {
         "tags": [
@@ -731,6 +732,8 @@
           }
         }
       },
+      
+      
       "delete": {
         "tags": [
           "user"
@@ -846,6 +849,26 @@
       },
       "xml": {
         "name": "User"
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "product_name": {
+          "type": "string"
+        },
+        "product_description": {
+          "type": "string"
+        },
+        "product_type": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Product"
       }
     },
     "Tag": {
