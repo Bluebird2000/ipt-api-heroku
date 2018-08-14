@@ -155,7 +155,7 @@ app.post('/create/product', (req, res) => {
  });
 
  app.get('/product', (req, res) => {
-    createProduct.find().then((data) => {
+    Product.find().then((data) => {
         res.status(200).send({status: 'success', data});
     }).catch((e) => {
         res.status(400).send({status: 'error', e});
