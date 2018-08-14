@@ -136,24 +136,75 @@ app.post('/user/login', (req, res) => {
 });
 
 
-// product endpoint starts here
-
-
+/* Ipt product endpoint starts here */
 app.post('/create/product', (req, res) => {
     var createProduct = new Product({
-        
+        product_name: req.body.product_name,
+        product_description: req.body.product_description,
+        product_type: req.body.product_type,
+        cost: req.body.cost,
+        is_active:req.body.is_active,
+        created_at:req.body.created_at,
+        updated_at:req.body.updated_at
     });
-    createProduct.save().then(() => {
-        return createProduct.generateAuthToken();
-    }).then((token) => {
-        res.header('x-auth', token).status(200).send(createProduct);
+    createProduct.save().then((data) => {
+        res.status(200).send({status:'success', data});
     }).catch((e) => {
-        res.status(400).send(e);
+        res.status(400).send({status:'error', e});
     });
  });
 
+ app.get('/product', (req, res) => {
+    createProduct.find().then((data) => {
+        res.status(200).send({status: 'success', data});
+    }).catch((e) => {
+        res.status(400).send({status: 'error', e});
+    });
+ });
 
+ app.patch('/product/update/:id', (req, res) => {
+    let id = req.params.id;
+    var body = _.pick(req.body, ['product_name', 'product_description', 'product_type', 'cost', 'created_at', 'updated_at']);
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send('product not found');
+    }
+    body.updated_at = new Date().getTime();
+    User.findByIdAndUpdate(id, {$set:body}, {new:true}).then((data) => {
+        if(!data){
+            res.status(404).send('data not found');
+        }
+        res.status(200).send({
+            status:'success',
+            data
+        });
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
 
+app.patch('/product/update/status/:id', (req, res) => {
+    let id = req.params.id;
+    var body = _.pick(req.body, ['status']);
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send('product not found');
+    }
+    if(_.isBoolean(body.status) && body.status){
+        body.status = true;
+    }else{
+        body.status = false;
+    }
+    Product.findByIdAndUpdate(id, {$set:body}, {new:true}).then((data) => {
+        if(!data){
+            res.status(404).send('product not found');
+        }
+        res.status(200).send({
+            status:'success',
+            data
+        });
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
 
 module.exports = {app};
 
