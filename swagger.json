@@ -543,7 +543,7 @@
       "xml": {
         "name": "Product"
       }
-    },
+    }
   },
   "externalDocs": {
     "description": "Find out more about Swagger",
