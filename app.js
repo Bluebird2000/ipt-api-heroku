@@ -5,6 +5,7 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 var {User} = require('./models/users');
+var {Product} = require('./models/products');
 var {mongoose} = require('./db/mongoose');
 var {ObjectID} = require('mongodb');
 var {authenticate} = require('./middleware/authenticate');
@@ -32,11 +33,12 @@ app.post('/create/user', (req, res) => {
    });
 });
 
-app.get('/users', authenticate, (req, res) => {
+app.get('/users', (req, res) => {
     User.find().then((data) => {
-        res.status(200).send(req.data);
+        res.status(200).send({status: 'success', data});
+    }, (e) => {
+        res.status(400).send({status: 'error', e});
     });
-    
 });
 
 app.get('/users/:id', (req, res) => {
@@ -132,6 +134,27 @@ app.post('/user/login', (req, res) => {
         res.status(400).send();
     });
 });
+
+
+// product endpoint starts here
+
+
+app.post('/create/product', (req, res) => {
+    var createProduct = new Product({
+        
+    });
+    createProduct.save().then(() => {
+        return createProduct.generateAuthToken();
+    }).then((token) => {
+        res.header('x-auth', token).status(200).send(createProduct);
+    }).catch((e) => {
+        res.status(400).send(e);
+    });
+ });
+
+
+
+
 module.exports = {app};
 
 app.listen(PORT, () => {
