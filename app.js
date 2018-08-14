@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.post('/create/user', (req, res) => {
+app.post('/user', (req, res) => {
    var createUser = new User({
        firstname:req.body.firstname,
        lastname:req.body.lastname,
@@ -41,7 +41,7 @@ app.get('/users', (req, res) => {
     });
 });
 
-app.get('/users/:id', (req, res) => {
+app.get('/user/:id', (req, res) => {
     let id = req.params.id;
     if(!ObjectID.isValid(id)){
         return res.status(404).send({
@@ -61,7 +61,7 @@ app.get('/users/:id', (req, res) => {
     });
 });
 
-app.put('/users/update/:id', (req, res) => {
+app.put('/user/update/:id', (req, res) => {
     let id = req.params.id;
     var body = _.pick(req.body, ['firstname', 'lastname', 'email', 'password', 'created_at', 'updated_at']);
     if(!ObjectID.isValid(id)){
@@ -81,7 +81,7 @@ app.put('/users/update/:id', (req, res) => {
     });
 });
 
-app.put('/users/update/status/:id', (req, res) => {
+app.put('/user/update/status/:id', (req, res) => {
     let id = req.params.id;
     var body = _.pick(req.body, ['is_active']);
     if(!ObjectID.isValid(id)){
@@ -105,7 +105,7 @@ app.put('/users/update/status/:id', (req, res) => {
     });
 });
 
-app.delete('/users/delete/:id', (req, res) => {
+app.delete('/user/:id', (req, res) => {
     let id = req.params.id;
     if(!ObjectID.isValid(id)){
         return res.status(404).send('unable to process request');
@@ -137,7 +137,7 @@ app.post('/user/login', (req, res) => {
 
 
 /* Ipt product endpoint starts here */
-app.post('/create/product', (req, res) => {
+app.post('/product', (req, res) => {
     var createProduct = new Product({
         product_name: req.body.product_name,
         product_description: req.body.product_description,
@@ -154,7 +154,7 @@ app.post('/create/product', (req, res) => {
     });
  });
 
- app.get('/product', (req, res) => {
+ app.get('/products', (req, res) => {
     Product.find().then((data) => {
         res.status(200).send({status: 'success', data});
     }).catch((e) => {
@@ -181,6 +181,27 @@ app.post('/create/product', (req, res) => {
         res.status(400).send(e);
     });
 });
+
+app.get('/product/:id', (req, res) => {
+    let id = req.params.id;
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send({
+            err:'not found'
+        });
+    }
+    Product.findById(id).then((data) => {
+        if(!data){
+            res.status(404).send('product not found');
+        }
+        res.status(200).send({
+            status:'success',
+            data
+        });
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
+
 
 app.put('/product/update/status/:id', (req, res) => {
     let id = req.params.id;
