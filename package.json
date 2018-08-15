@@ -10,7 +10,7 @@
     "node": "8.11.2"
   },
   "repository": {
-    "type": "git"
+    "type": "https://github.com/Bluebird2000/ipt-api-heroku"
   },
   "keywords": [
     "node",
