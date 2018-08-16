@@ -227,8 +227,8 @@ app.put('/product/update/status/:id', (req, res) => {
     });
 });
 
-module.exports = {app};
 
 app.listen(PORT, () => {
     console.log(`Application now listening to port ${PORT}`);
 });
+module.exports = {app};

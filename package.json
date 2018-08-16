@@ -2,9 +2,9 @@
   "name": "ipt-api",
   "version": "1.0.0",
   "description": "rest api using mongodb && express",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "8.11.2"
@@ -28,6 +28,7 @@
     "lodash": "^4.17.10",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.5",
+    "nodemon": "^1.18.3",
     "swagger-ui-express": "^3.0.10",
     "validator": "^10.4.0"
   },
