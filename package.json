@@ -2,9 +2,9 @@
   "name": "ipt-api",
   "version": "1.0.0",
   "description": "rest api using mongodb && express",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "8.11.2"
